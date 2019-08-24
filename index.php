@@ -6,7 +6,15 @@
 
 // Fichier PHP contenant la connexion à votre BDD
 
-include('../include/config.php');
+
+try
+{
+    $bdd = new PDO('mysql:host=localhost;dbname=blog_jean;charset=utf8', 'root', 'root');
+}
+catch(Exception $e)
+{
+    die('Erreur : '.$e->getMessage());
+}
 
 
 ?>
@@ -129,6 +137,37 @@ if(!isset($_SESSION['id'])){ // Si on ne détecte pas de session alors on verra 
 
 </section>
 
+
+
+// On récupère les 5 derniers billets
+<?php
+$req = $bdd->query('SELECT id, titre, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets ORDER BY date_creation DESC LIMIT 0, 5');
+
+while ($donnees = $req->fetch())
+{
+?>
+
+<div class="news">
+    <h3>
+        <?php echo htmlspecialchars($donnees['titre']); ?>
+        <em>le <?php echo $donnees['date_creation_fr']; ?></em>
+    </h3>
+
+    <p>
+        // On affiche le contenu du billet
+
+        <?php
+
+        echo nl2br(htmlspecialchars($donnees['contenu']));
+        ?>
+        <br />
+        <em><a href="commentaires.php?billet=<?php echo $donnees['id']; ?>">Commentaires</a></em>
+    </p>
+</div>
+<?php
+} // Fin de la boucle des billets
+$req->closeCursor();
+?>
 
 </body>
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Vanessa\Projet3\Model;
+namespace Model;
 
-use \Vanessa\Projet3\Framework\Model;
+use Model;
 
-//require_once 'Framework/Model.php';
+//require_once 'Model.php';
 
 class Comment extends Model
 {
@@ -14,7 +14,7 @@ class Comment extends Model
      */
     public function getAllComments()
     {
-        $sql ='SELECT c.id, c.author, c.com_content, c.post_id, c.nb_report, DATE_FORMAT(c.date, \'%d/%m/%Y\') AS date_fr,
+        $sql ='SELECT c.id, c.author, c.com_content, c.post_id, c.nb_report, DATE_FORMAT(c.date_commentaire, \'%d/%m/%Y\') AS date_fr,
         p.id AS post_id, p.title AS post_title
         FROM comment AS c
         LEFT JOIN post AS p ON p.id = c.post_id
@@ -71,7 +71,7 @@ class Comment extends Model
      */
     public function lastComment()
     {
-        $sql = 'SELECT id, author, com_content, DATE_FORMAT(date, \'%d/%m/%Y\') AS date_fr FROM comment ORDER BY date DESC LIMIT 0,1';
+        $sql = 'SELECT id, author, com_content, DATE_FORMAT(date, \'%d/%m/%Y\') AS date_commentaire_fr FROM comment ORDER BY date DESC LIMIT 0,1';
         $comments = $this->executeRequest($sql);
         return $comments;
     }
@@ -84,7 +84,7 @@ class Comment extends Model
      */
     public function getComment($id)
     {
-        $sql = 'SELECT c.id, c.author, c.com_content, c.post_id, c.nb_report, DATE_FORMAT(c.date, \'%d/%m/%Y\') AS date_fr,
+        $sql = 'SELECT c.id, c.author, c.com_content, c.post_id, c.nb_report, DATE_FORMAT(c.date_commentaire, \'%d/%m/%Y\') AS date_commentaire_ fr,
         p.id AS post_id, p.title AS post_title
         FROM comment AS c
         LEFT JOIN post AS p ON c.post_id = p.id

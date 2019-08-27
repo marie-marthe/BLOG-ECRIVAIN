@@ -1,7 +1,14 @@
 <?php
 
 // Fichier PHP contenant la connexion à votre BDD
-require_once('../include/config.php');
+try
+{
+    $bdd = new PDO('mysql:host=localhost;dbname=blog_jean;charset=utf8', 'root', 'root');
+}
+catch(Exception $e)
+{
+    die('Erreur : '.$e->getMessage());
+}
 
 session_start();
 
@@ -24,7 +31,7 @@ $sql = "SELECT
             ON p.adminUser_FK = aU.id
             LEFT JOIN category c 
             ON p.category_FK = c.id;";
-$stmt = $dbh->prepare($sql);
+$stmt = $bdd->prepare($sql);
 $stmt->execute();
 $posts = $stmt->fetchAll();
 

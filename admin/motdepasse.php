@@ -1,6 +1,14 @@
 <?php
 session_start();
-include('../include/config.php');
+// Fichier PHP contenant la connexion à votre BDD
+try
+{
+    $bdd = new PDO('mysql:host=localhost;dbname=blog_jean;charset=utf8', 'root', 'root');
+}
+catch(Exception $e)
+{
+    die('Erreur : '.$e->getMessage());
+}
 
 if (isset($_SESSION['id'])){
     header('Location: index.php');

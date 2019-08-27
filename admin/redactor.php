@@ -2,7 +2,15 @@
 
 session_start();
 
-require_once('../include/config.php'); // Fichier PHP contenant la connexion à votre BDD
+// Fichier PHP contenant la connexion à votre BDD
+try
+{
+    $bdd = new PDO('mysql:host=localhost;dbname=blog_jean;charset=utf8', 'root', 'root');
+}
+catch(Exception $e)
+{
+    die('Erreur : '.$e->getMessage());
+}
 
 
 

@@ -19,10 +19,10 @@ class User extends Model
      * $param $password
      * return boolean vrai si l'utilisateur existe
      */
-    public function connect($login, $password)
+    public function connect($email, $password)
     {
-        $sql = 'SELECT id FROM adminUser WHERE email=? AND password=?';
-        $user = $this->executeRequest($sql, array($login, $password));
+        $req = 'SELECT id FROM adminUser WHERE email=? AND password=?';
+        $user = $this->executeRequest($req, array($email, $password));
         return ($user->rowCount() == 1);
     }
 
@@ -30,10 +30,10 @@ class User extends Model
      * Renvoie un utilisateur existant dans la BDD
      *
      */
-    public function getUser($login)
+    public function getUser($email)
     {
-        $sql = 'SELECT id as adminUser, email, password FROM adminUser WHERE login=? ';
-        $user = $this->executeRequest($sql, array($login));
+        $req = 'SELECT id as adminUser, email, password FROM adminUser WHERE login=? ';
+        $user = $this->executeRequest($req, array($email));
         if ($user->rowCount() == 1)
         {
             return $user->fetch(); // Accès à la première ligne de résultat
@@ -48,8 +48,8 @@ class User extends Model
     public function newPassword($newpassword, $id)
     {
         $newpassword = password_hash($newpassword, $id);
-        $sql = 'UPDATE adminUser SET password = ? WHERE id = ?';
-        $user = $this->executeRequest($sql, array($newpassword, $id));
+        $req = 'UPDATE adminUser SET password = ? WHERE id = ?';
+        $user = $this->executeRequest($req, array($newpassword, $id));
         return $user;
     }
 }

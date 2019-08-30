@@ -1,6 +1,6 @@
 <?php
 
-namespace Model;
+namespace model;
 
 use Model;
 
@@ -11,7 +11,7 @@ use Model;
  * et de gérer ses propriétés (id, email, password).
  */
 
-class User extends Model
+class AdminUser extends Model
 {
     /**
      * Vérifie que l'utilisateur existe dans la BDD

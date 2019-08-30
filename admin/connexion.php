@@ -2,11 +2,13 @@
 
 session_start();
 
+
 // Fichier PHP contenant la connexion à votre BDD
 try
 {
     $bdd = new PDO('mysql:host=localhost;dbname=blog_jean;charset=utf8', 'root', 'root');
 }
+
 catch(Exception $e)
 {
     die('Erreur : '.$e->getMessage());
@@ -18,7 +20,7 @@ $req = $bdd->prepare('SELECT email, password FROM adminUser WHERE username = :us
 
 $req->execute(array(
 
-    'email' => $email));
+    'mail' => $mail));
 
 $resultat = $req->fetch();
 

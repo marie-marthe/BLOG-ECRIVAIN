@@ -1,6 +1,6 @@
 <?php
 
-namespace blog_jean\Controller;
+namespace controller;
 
 // dans cette classe, on se connecte à la BDD
 
